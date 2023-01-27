@@ -1,14 +1,25 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        StringBuilder sb = new StringBuilder();
-        for (char c : s.toLowerCase().toCharArray()) {
-            if (c - 'a' >= 0 && c - 'a' <= 25) sb.append(c + "");
-            if (c - '0' >= 0 && c - '0' <= 9) sb.append(c + "");
+        char[] arr = s.toLowerCase().toCharArray();
+        int left = 0, right = arr.length - 1;
+        
+        while (left < right) {
+            boolean leftEligible = (arr[left]-'a' >= 0 && arr[left]-'a' <= 25) || (arr[left]-'0' >= 0 && arr[left]-'0' <= 9);
+            boolean rightEligible = (arr[right]-'a' >= 0 && arr[right]-'a' <= 25) || (arr[right]-'0' >= 0 && arr[right]-'0' <= 9);
+            
+            if (leftEligible && rightEligible) {
+                if (arr[left] != arr[right]) return false;
+                right--;
+                left++;
+            } else if (leftEligible) {
+                right--;
+            } else if (rightEligible) {
+                left++;
+            } else {
+                right--;
+                left++;
+            }
         }
-        
-        String str = sb.toString();
-        String rev = sb.reverse().toString();
-        
-        return str.equals(rev);
+        return true;
     }
 }
