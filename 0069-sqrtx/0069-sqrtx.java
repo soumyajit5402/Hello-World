@@ -1,6 +1,6 @@
 class Solution {
     public int mySqrt(int x) {
-        int low = 0, high = x, max_int_sqrt = 46340; // handle integer overflow
+        int low = 0, high = x, max_int_sqrt = 46340; // sqrt(2^32 - 1) to handle integer overflow
         
         while (high - low > 1) {
             int mid = ((low + high) >> 1);
