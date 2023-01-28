@@ -3,10 +3,7 @@ class Solution {
         Arrays.sort(nums);
         long targetL = target;
         List<List<Integer>> ans = new ArrayList<>();
-        
-        if (nums.length < 4) return ans;
-        
-        
+        if (nums.length < 4) return ans; // handle edge case
         for (int i = 0; i <= nums.length - 4; i++) {
             // avoid duplicates
             if (i > 0 && nums[i] == nums[i-1]) continue;
