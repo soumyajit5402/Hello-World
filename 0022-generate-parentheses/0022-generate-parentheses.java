@@ -6,10 +6,7 @@ class Solution {
     }
     
     private void generateCombinations(StringBuilder sb, int openCount, int closeCount) {
-        if (openCount + closeCount == 0) {
-            result.add(sb.toString());
-            return;
-        }
+        if (openCount + closeCount == 0) result.add(sb.toString());
         
         if (openCount > 0) {
             StringBuilder sbNew = new StringBuilder(sb.toString()).append("(");
