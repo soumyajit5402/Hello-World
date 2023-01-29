@@ -5,8 +5,9 @@ class Solution {
             if (val < 0) return -1;
             else return 1;
         });
-        double price = 0.0d;
+        
         int index = 0;
+        double price = 0.0d;
         while (capacity > 0 && index < items.length) {
             if (capacity > items[index][1]) {
                 capacity -= items[index][1];
@@ -17,6 +18,7 @@ class Solution {
             }
             index++;
         }
+        
         if (capacity > 0) return -1.0d;
         return price;
     }
