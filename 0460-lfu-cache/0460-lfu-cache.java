@@ -1,9 +1,10 @@
 class LFUCache {
     int size = 0;
     int capacity = 0;
+    int leastFrequency = 1;
     Map<Integer, Integer> counter = new HashMap<>();
     Map<Integer, Integer> container = new HashMap<>();
-    TreeMap<Integer, LinkedHashSet<Integer>> lfu_lru_cont = new TreeMap<>();
+    Map<Integer, LinkedHashSet<Integer>> lfu_lru_cont = new HashMap<>();
     
     public LFUCache(int capacity) {
         this.capacity = capacity;
@@ -48,11 +49,11 @@ class LFUCache {
                 // assign and update container for new input
                 lfu_lru_cont.putIfAbsent(1, new LinkedHashSet<>());
                 lfu_lru_cont.get(1).add(key);
+                // reset least frequency value
+                leastFrequency = 1;
                 // update the size of cache
                 size++;
             } else {
-                // derive least frequency in cache
-                int leastFrequency = lfu_lru_cont.ceilingKey(0);
                 // derive all least frquently used keys
                 LinkedHashSet<Integer> leastFrequentKeys = lfu_lru_cont.get(leastFrequency);
                 // derive the least recently used least frequent key
@@ -67,6 +68,8 @@ class LFUCache {
                 // assign and update container for new input
                 lfu_lru_cont.putIfAbsent(1, new LinkedHashSet<>());
                 lfu_lru_cont.get(1).add(key);
+                // reset least frequency value
+                leastFrequency = 1;
             }
         }
         // update the container and counter maps with new input
@@ -77,6 +80,9 @@ class LFUCache {
     private void pruneContainer(int key) {
         if (lfu_lru_cont.containsKey(key) && lfu_lru_cont.get(key).size() == 0) {
             lfu_lru_cont.remove(key);
+            if (leastFrequency == key) {
+                leastFrequency = key + 1;
+            }
         }
     }
 }
