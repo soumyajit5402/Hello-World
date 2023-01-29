@@ -3,7 +3,6 @@ class Solution {
         int left = 0, right = nums.length - 1;
         while (right - left > 1) {
             int mid = left + ((right - left) >> 1);
-            
             if (nums[mid] == target) {
                 return mid;
             } else if (nums[mid] > nums[left]) {
@@ -12,8 +11,6 @@ class Solution {
             } else if (nums[mid] < nums[left]) { 
                 if (target <= nums[right] && target > nums[mid]) left = mid + 1;
                 else right = mid - 1;
-            } else {
-                // left = mid+1;
             }
         }
         
