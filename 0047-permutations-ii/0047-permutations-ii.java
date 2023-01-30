@@ -2,7 +2,6 @@ class Solution {
     Set<Long> visited = new HashSet<>();
     List<List<Integer>> container = new ArrayList<>();
     public List<List<Integer>> permuteUnique(int[] nums) {
-        // Arrays.sort(nums);
         findPermutations(nums, 0l, 0);
         return container;
     }
@@ -28,7 +27,6 @@ class Solution {
     }
     
     private void swap(int[] arr, int pos1, int pos2) {
-        if (pos1 < 0 || pos1 >= arr.length || pos2 < 0 || pos2 >= arr.length) return;
         int temp = arr[pos1];
         arr[pos1] = arr[pos2];
         arr[pos2] = temp;
