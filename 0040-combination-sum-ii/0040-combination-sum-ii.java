@@ -15,10 +15,9 @@ class Solution {
         findCombinations(arr, index + 1, sum + arr[index], target, newListInclude);
         
         List<Integer> newListExclude = new ArrayList<>(currList);
+        // skip the same value at the same location to avoid duplicates
         int skipIndex = index + 1;
-        for (; skipIndex < arr.length; skipIndex++) {
-            if (arr[skipIndex] != arr[index]) break;
-        }
+        for (; skipIndex < arr.length; skipIndex++) if (arr[skipIndex] != arr[index]) break;
         findCombinations(arr, skipIndex, sum, target, newListExclude);
     }
 }
