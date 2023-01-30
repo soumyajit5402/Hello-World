@@ -3,24 +3,25 @@ class Solution {
     List<List<Integer>> container = new ArrayList<>();
     public List<List<Integer>> permuteUnique(int[] nums) {
         Arrays.sort(nums);
-        findPermutations(nums, 0, 0l, new ArrayList<>());
+        findPermutations(nums, 0l, new ArrayList<>());
         return container;
     }
     
-    private void findPermutations(int[] arr, int index, long uniqueKey, List<Integer> currList) {
-        if (index == arr.length) {
+    private void findPermutations(int[] arr, long uniqueKey, List<Integer> currList) {
+        if (currList.size() == arr.length) {
             if (!visited.contains(uniqueKey)) container.add(currList);
             visited.add(uniqueKey);
             return;
         }
         
+        int index = currList.size();
         for (int swapIndex = index; swapIndex < arr.length; swapIndex++) {
             swap(arr, index, swapIndex);
             List<Integer> newList = new ArrayList<>(currList);
             newList.add(arr[index]);
             // compute unique key to avoid duplicates
             long newUniqueKey = uniqueKey * 100l + (arr[index] + 10l); 
-            findPermutations(arr, index + 1, newUniqueKey, newList);
+            findPermutations(arr, newUniqueKey, newList);
             swap(arr, index, swapIndex); // backtracking
         }
     }
