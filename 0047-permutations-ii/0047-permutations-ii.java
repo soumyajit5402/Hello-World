@@ -2,7 +2,7 @@ class Solution {
     Set<Long> visited = new HashSet<>();
     List<List<Integer>> container = new ArrayList<>();
     public List<List<Integer>> permuteUnique(int[] nums) {
-        Arrays.sort(nums);
+        // Arrays.sort(nums);
         findPermutations(nums, 0l, 0);
         return container;
     }
