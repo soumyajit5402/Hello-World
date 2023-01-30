@@ -1,7 +1,7 @@
 public class Solution {
     public void rotate(int[][] matrix) {
         /*
-        The idea was firstly transpose the matrix and then flip it symmetrically.
+        The idea is to first transpose the matrix and then flip it symmetrically.
         After transpose, it will be -> swap(matrix[i][j], matrix[j][i])
         Then flip the matrix horizontally -> (swap(matrix[i][j], matrix[i][matrix.length-1-j])
         */
