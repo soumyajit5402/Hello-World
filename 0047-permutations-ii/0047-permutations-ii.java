@@ -16,6 +16,7 @@ class Solution {
         Set<Integer> visited = new HashSet<>();
         for (int swapIndex = index; swapIndex < arr.length; swapIndex++) {
             swap(arr, index, swapIndex);
+            // swap the same item at any particular location only once
             if (visited.add(arr[index])) findPermutations(arr, index + 1);
             swap(arr, index, swapIndex); // backtracking    
         }
