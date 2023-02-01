@@ -13,7 +13,7 @@ class Solution {
         boolean result = false;
         if (i1 < s1.length() && s1.charAt(i1) == s3.charAt(i3)) 
             result = result || checkIsInterleaving(s1, i1 + 1, s2, i2, s3, i3 + 1);
-        if (i2 < s2.length() && s2.charAt(i2) == s3.charAt(i3)) 
+        if (result == false && i2 < s2.length() && s2.charAt(i2) == s3.charAt(i3)) 
             result = result || checkIsInterleaving(s1, i1, s2, i2 + 1, s3, i3 + 1);
         
         dp[i1][i2] = result ? 1 : -1;
