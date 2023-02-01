@@ -12,7 +12,7 @@ class Solution {
             else if (matrix[mid][0] < target) left = mid;
         }
         
-        if ((right >= 0 && matrix[right][0] == target) || matrix[left][0] == target) return true;
+        if (matrix[right][0] == target || matrix[left][0] == target) return true;
         
         int row = (target > matrix[right][0]) ? right : left;
         
@@ -24,7 +24,7 @@ class Solution {
             else if (matrix[row][mid] > target) right = mid - 1;
             else if (matrix[row][mid] < target) left = mid + 1;
         }
-        if ((right >= 0 && matrix[row][right] == target) || (left < matrix[0].length && matrix[row][left] == target))
+        if (matrix[row][right] == target || matrix[row][left] == target)
             return true;
         return false;
     }
