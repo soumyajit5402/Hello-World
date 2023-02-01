@@ -1,14 +1,16 @@
 class Solution {
     public void sortColors(int[] nums) {
-        int oneCount = 0, twoCount = 0;
-        for (int num : nums) {
-            if (num == 1) oneCount++;
-            if (num == 2) twoCount++;
+        int left = 0, right = nums.length - 1, curr = 0;
+        while (curr <= right) {
+            if (nums[curr] == 0) swap(nums, curr++, left++);
+            else if (nums[curr] == 2) swap(nums, curr, right--); // don't increment current pointer
+            else curr++;
         }
-        
-        Arrays.fill(nums, 0);
-        int index = nums.length - oneCount - twoCount, end = index + oneCount;
-        for (; index < end; index++) nums[index] = 1;
-        for (; index < nums.length; index++) nums[index] = 2;
+    }
+    
+    private void swap(int[] arr, int a, int b) {
+        int temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;            
     }
 }
