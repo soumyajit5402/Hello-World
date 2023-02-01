@@ -1,7 +1,6 @@
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int len = preorder.length;
-        if (len == 0) return null;
         return generateTree(preorder, 0, len - 1, inorder, 0, len - 1);
     }
     
