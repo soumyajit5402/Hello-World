@@ -1,6 +1,8 @@
 class Solution {
+    Map<Integer, Integer> indexMapping = new HashMap<>();
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int len = preorder.length;
+        for (int i = 0; i < inorder.length; i++) indexMapping.put(inorder[i], i);
         return generateTree(preorder, 0, len - 1, inorder, 0, len - 1);
     }
     
@@ -10,17 +12,12 @@ class Solution {
         
         TreeNode root = new TreeNode(preorder[po_left]);
         
-        int inorderIndex = binarySearch(inorder, preorder[po_left], io_left, io_right);
+        int inorderIndex = indexMapping.get(preorder[po_left]);
         int leftLength = inorderIndex - io_left;
         
         root.left = generateTree(preorder, po_left + 1, po_left + leftLength, inorder, io_left, inorderIndex - 1);
         root.right = generateTree(preorder, po_left + leftLength + 1, po_right, inorder, inorderIndex + 1, io_right); 
         
         return root;
-    }
-    
-    private int binarySearch(int[] arr, int target, int left, int right) {
-        for (int i = left; i <= right; i++) if (arr[i] == target) return i;
-        return -1;
     }
 }
