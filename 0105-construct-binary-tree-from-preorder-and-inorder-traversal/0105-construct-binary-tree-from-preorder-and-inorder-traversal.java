@@ -10,14 +10,12 @@ class Solution {
         if (po_left > po_right || io_left > io_right) return null;
         if (po_left == po_right || io_left == io_right) return new TreeNode(preorder[po_left]);
         
-        TreeNode root = new TreeNode(preorder[po_left]);
-        
         int inorderIndex = indexMapping.get(preorder[po_left]);
         int leftLength = inorderIndex - io_left;
         
+        TreeNode root = new TreeNode(preorder[po_left]);
         root.left = generateTree(preorder, po_left + 1, po_left + leftLength, inorder, io_left, inorderIndex - 1);
         root.right = generateTree(preorder, po_left + leftLength + 1, po_right, inorder, inorderIndex + 1, io_right); 
-        
         return root;
     }
 }
