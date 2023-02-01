@@ -6,10 +6,7 @@ class Solution {
     }
     
     private void countSum(TreeNode root, int sum) {
-        if (root == null) {
-            total += sum;
-            return;
-        }
+        if (root == null) return;
         sum = sum * 10 + root.val;
         if (root.left == null && root.right == null) {
             total += sum;
