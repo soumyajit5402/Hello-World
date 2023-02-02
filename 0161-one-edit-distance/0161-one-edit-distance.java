@@ -1,23 +1,20 @@
 class Solution {
     public boolean isOneEditDistance(String s, String t) {
-        if (s.length() == 0) return t.length() == 1;
-        if (t.length() == 0) return s.length() == 1;
-        int[][] dp = new int[s.length() + 1][t.length() + 1];
-        for (int i = 0; i <= s.length(); i++) {
-            for (int j = 0; j <= t.length(); j++) {
-                if (i == 0) dp[i][j] = j;
-                else if (j == 0) dp[i][j] = i;
-                else if (s.charAt(i-1) == t.charAt(j-1)) dp[i][j] = dp[i-1][j-1];
-                else dp[i][j] = 1 + Math.min(Math.min(dp[i-1][j], dp[i][j-1]), dp[i-1][j-1]);
+        if (s.length() > t.length()) return isOneEditDistance(t, s);
+        
+        if (s.equals(t) || Math.abs(s.length() - t.length()) > 1) return false;
+        
+        int sIndex = s.length() - 1, tIndex = t.length() - 1;
+        while (sIndex >= 0 && tIndex >= 0) {
+            if (s.charAt(sIndex) == t.charAt(tIndex)) {
+                sIndex--;
+                tIndex--;
+            } else {
+                boolean replace = (s.substring(0, sIndex)).equals(t.substring(0, tIndex));
+                boolean delete = (tIndex == 0) || (s.substring(0, sIndex + 1)).equals(t.substring(0, tIndex));
+                return replace || delete;
             }
         }
-        return dp[s.length()][t.length()] == 1;
+        return true;
     }
 }
-
-/*
-    a
-  0 1 
-b 1 1
-a 2 1
-  */
