@@ -1,13 +1,10 @@
 class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
         Map<Integer, Integer> container = new HashMap<>();
-        for (int i = 0; i < nums2.length; i++) {
-            container.put(nums2[i], i);
-        }
-        
         int[] nextGreaterIndex = new int[nums2.length];
         Stack<Integer> nextGreater = new Stack<>();
         for (int i = 0; i < nums2.length; i++) {
+            container.put(nums2[i], i);
             while (!nextGreater.isEmpty() && nums2[i] > nums2[nextGreater.peek()]) {
                 nextGreaterIndex[nextGreater.pop()] = nums2[i];
             }
