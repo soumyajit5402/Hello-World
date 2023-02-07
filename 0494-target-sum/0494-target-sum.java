@@ -2,7 +2,7 @@ class Solution {
     int[][] dp;
     int total = 0;
     public int findTargetSumWays(int[] nums, int target) {
-        for (int num : nums) total += num;
+        total = Arrays.stream(nums).sum();
         dp = new int[nums.length][2 * total + 1];
         for (int[] arr : dp) Arrays.fill(arr, Integer.MIN_VALUE);
         return computeWays(nums, 0, 0, target);
