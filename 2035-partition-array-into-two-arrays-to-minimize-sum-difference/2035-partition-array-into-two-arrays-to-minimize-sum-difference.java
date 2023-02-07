@@ -33,14 +33,4 @@ class Solution {
         findAllSums(arr, left + 1, right, count + 1, sum + arr[left], container);
         findAllSums(arr, left + 1, right, count, sum, container);
     }
-    
-    private int getDiff(int[] arr, int num) {
-        int sum1 = 0, sum2 = 0;
-        for (int val : arr) {
-            if ((num & 1) != 0) sum1 += val;
-            else sum2 += val;
-            num = num >> 1;
-        }
-        return Math.abs(sum1 - sum2);
-    }
 }
