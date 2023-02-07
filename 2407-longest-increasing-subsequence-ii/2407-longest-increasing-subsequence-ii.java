@@ -1,12 +1,13 @@
 class Solution {
     public int lengthOfLIS(int[] nums, int k) {
+        int maxLISLen = 1;
         int segTreeLen = 1 + Arrays.stream(nums).max().getAsInt();
         MaxSegmentTree maxLISSegmentTree = new MaxSegmentTree(segTreeLen);
         
-        int maxLISLen = 1;
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 1) maxLISSegmentTree.updateTree(1, 1);
-            else {
+            if (nums[i] == 1) {
+                maxLISSegmentTree.updateTree(1, 1);
+            } else {
                 int left = Math.max(1, nums[i] - k);
                 int right = nums[i] - 1;
                 int maxInRange = maxLISSegmentTree.getMax(left, right);
@@ -25,20 +26,6 @@ class Solution {
         public MaxSegmentTree(int size) {
             len = size;
             arr = new int[4 * size];
-        }
-
-        public int constructTree(int[] input, int arrStartIndex, int arrEndIndex, int segTreeIndex) {
-            if (arrStartIndex == arrEndIndex) {
-                arr[segTreeIndex] = input[arrStartIndex];
-                return arr[segTreeIndex];
-            }
-
-            int arrMidIndex = arrStartIndex + ((arrEndIndex - arrStartIndex) >> 1);
-
-            arr[segTreeIndex] = Math.max(constructTree(input, arrStartIndex, arrMidIndex, 2 * segTreeIndex),
-                                      constructTree(input, arrMidIndex + 1, arrEndIndex, 2 * segTreeIndex + 1));
-
-            return arr[segTreeIndex];
         }
 
         private void updateTreeUtil(int startIndex, int endIndex, int updateIndex, int newValue, int segTreeIndex) {
@@ -77,13 +64,5 @@ class Solution {
         public int getMax(int queryStartIndex, int queryEndIndex) {
             return getMaxUtil(0, len - 1, queryStartIndex, queryEndIndex, 1);
         }
-
-        public void print() {
-            for (int num : arr) {
-                System.out.print(num + ", ");
-            }
-            System.out.println();
-        }
     }
 }
-
