@@ -1,14 +1,21 @@
 class Solution {
-    int count = 0;
+    int[][] dp;
+    int total = 0;
     public int findTargetSumWays(int[] nums, int target) {
-        computeWays(nums, 0, 0, target);
-        return count;
+        for (int num : nums) total += num;
+        dp = new int[nums.length][2 * total + 1];
+        for (int[] arr : dp) Arrays.fill(arr, Integer.MIN_VALUE);
+        return computeWays(nums, 0, 0, target);
     }
     
-    private void computeWays(int[] arr, int i, int sum, int target) {
-        if (i == arr.length && sum == target) count++;
-        if (i == arr.length) return;
-        computeWays(arr, i + 1, sum + arr[i], target);
-        computeWays(arr, i + 1, sum - arr[i], target);
+    private int computeWays(int[] arr, int i, int sum, int target) {
+        if (i == arr.length && sum == target) return 1;
+        if (i == arr.length) return 0;
+        if (dp[i][total + sum] == Integer.MIN_VALUE) {
+            int countWith = computeWays(arr, i + 1, sum + arr[i], target);
+            int countWithout = computeWays(arr, i + 1, sum - arr[i], target);
+            dp[i][total + sum] = countWith + countWithout;    
+        }
+        return dp[i][total + sum];
     }
 }
