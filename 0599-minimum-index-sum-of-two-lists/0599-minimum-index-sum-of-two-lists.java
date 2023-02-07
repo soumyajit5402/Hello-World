@@ -19,9 +19,7 @@ class Solution {
             }
         }
         
-        int count = 0;
-        String[] ans = new String[ansList.size()];
-        for (String key : ansList) ans[count++] = key;
+        String[] ans = ansList.toArray(new String[0]);
         return ans;
     }
 }
