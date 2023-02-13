@@ -3,7 +3,6 @@ class Solution {
         if (Long.parseLong(n) == 1) { return "0"; }
         char[] arr = n.toCharArray();
         int mid = arr.length / 2;
-        
         return getClosestPalindrome(arr, mid - (1 - arr.length % 2), mid);  
     }
     
@@ -58,17 +57,9 @@ class Solution {
     
     String getClosestPalindrome(char[] num, int beforeMid, int afterMid) {
         Long originalNum = Long.parseLong(new String(num));
-        
+        int left = beforeMid, right = afterMid;
         while (beforeMid >= 0) {
-            if (num[beforeMid] != num[afterMid]) {
-                if (num[beforeMid] > num[afterMid]) {
-                    num[afterMid] = num[beforeMid];
-                } else {
-                    num[afterMid] = num[beforeMid];
-                }
-            }
-            beforeMid--;
-            afterMid++;
+            num[afterMid++] = num[beforeMid--];
         }
         
         String palinString = new String(num);
@@ -77,22 +68,18 @@ class Solution {
         String prevPalinString = null;
         String nextPalinString = null;
         if (palinNum.equals(originalNum)) {
-            prevPalinString = getPrevPalindromeForPalindromeNumber(palinString, (num.length / 2) - (1 - num.length % 2), num.length / 2);
-            nextPalinString = getNextPalindromeForPalindromeNumber(palinString, (num.length / 2) - (1 - num.length % 2), num.length / 2);
+            prevPalinString = getPrevPalindromeForPalindromeNumber(palinString, left, right);
+            nextPalinString = getNextPalindromeForPalindromeNumber(palinString, left, right);
         } else if (palinNum < originalNum) {
             prevPalinString = palinString;
-            nextPalinString = getNextPalindromeForPalindromeNumber(palinString, (num.length / 2) - (1 - num.length % 2), num.length / 2);
+            nextPalinString = getNextPalindromeForPalindromeNumber(palinString, left, right);
         } else {
-            prevPalinString = getPrevPalindromeForPalindromeNumber(palinString, (num.length / 2) - (1 - num.length % 2), num.length / 2);  
+            prevPalinString = getPrevPalindromeForPalindromeNumber(palinString, left, right);  
             nextPalinString = palinString;
         }
         
         Long prevPalinNum = Long.parseLong(prevPalinString);
         Long nextPalinNum = Long.parseLong(nextPalinString);
-
-        // System.out.println("OriginalNum: " + originalNum);
-        // System.out.println("PrevPalinNum: " + prevPalinNum);
-        // System.out.println("NextPalinNum: " + nextPalinNum);
 
         if ((originalNum - prevPalinNum) <= (nextPalinNum - originalNum)) {
             return prevPalinString;    
