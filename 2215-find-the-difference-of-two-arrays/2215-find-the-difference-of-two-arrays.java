@@ -6,19 +6,16 @@ class Solution {
         
         Set<Integer> container2 = new HashSet<>();
         for (int num : nums2) container2.add(num);
-        List<Integer> result2 = new ArrayList<>();
+        
         
         for (int num : container1) {
             if (!container2.contains(num)) {
                 result1.add(num);
+            } else {
+                container2.remove(num);
             }
         }
-        
-        for (int num : container2) {
-            if (!container1.contains(num)) {
-                result2.add(num);
-            }
-        }
+        List<Integer> result2 = new ArrayList<>(container2);
         
         List<List<Integer>> result = new ArrayList<>();
         result.add(result1);
